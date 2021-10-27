@@ -83,6 +83,13 @@
                             <constraint firstItem="Lq2-EO-DFC" firstAttribute="top" secondItem="5m0-XB-RDD" secondAttribute="bottom" constant="20" id="wAU-SM-Iyn"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="dateLabel" destination="98z-CU-NvN" id="jJN-Ht-wrf"/>
+                        <outlet property="resultLabel" destination="0Xe-An-laU" id="7bE-qu-hT8"/>
+                        <outlet property="roundLabel" destination="rAn-q7-byu" id="PZe-H0-ahc"/>
+                        <outlet property="roundPickerView" destination="Xc2-d4-5DR" id="8o4-gW-9sx"/>
+                        <outlet property="textField" destination="5m0-XB-RDD" id="qh2-Ii-Hw9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
