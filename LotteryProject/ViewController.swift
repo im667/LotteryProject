@@ -31,39 +31,33 @@ class ViewController: UIViewController {
        
         roundPickerView.delegate = self
         roundPickerView.dataSource = self
-
+        textField.inputView = roundPickerView
+               textField.text = "\(drwNo[0])"
+       
         
         self.resultLabel.backgroundColor = .systemPink
         self.resultLabel.textColor = .white
         
-        
+        fetchLotto(data: textField.text!)
+      
     }
 
 
 }
 
 extension ViewController: UIPickerViewDelegate,UIPickerViewDataSource {
+
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return  "\(drwNo[row])"
-    }
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return  1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return  drwNo.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func fetchLotto(data:String) {
+        
         guard let data = textField.text else {return}
         
         lotteryAPIManager.shared.fetchlottoData(data: data) { code, json in
             switch code {
+                
             case 200:
                 print(json)
-                self.textField.text = "\(self.drwNo[row])"
+                
                 self.resultLabel.text = json["drwtNo1"].stringValue
                 self.resultLabel.text?.append(contentsOf: ",")
                 self.resultLabel.text?.append(contentsOf: json["drwtNo2"].stringValue)
@@ -87,10 +81,28 @@ extension ViewController: UIPickerViewDelegate,UIPickerViewDataSource {
             default : print("error")
             }
             
-            
-            
         }
     }
+        
     
     
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return  "\(drwNo[row])"
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return  1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return  drwNo.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.textField.text! = "\(drwNo[row])"
+        fetchLotto(data:"\(drwNo[row])")
+    
+    
+}
+
 }
